@@ -13,7 +13,6 @@ html {
 }
 #pexels-main .title-container {
   height: 10vh;
-  background-color: aqua;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +23,6 @@ html {
 }
 #pexels-main .search-bar-container {
   height: 15vh;
-  background-color: aquamarine;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,29 +32,50 @@ html {
   border-radius: 2.3rem;
   padding: 0.2rem;
 }
+#pexels-main .app-navigation-container {
+  height: 7vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+  position: relative;
+}
+#pexels-main .app-navigation-container button {
+  cursor: pointer;
+  border: none;
+  padding: 1rem 1.5rem;
+  background-color: beige;
+  border-radius: 0.8rem;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+}
 #pexels-main .pexel-gallery-container {
   height: 65vh;
   width: 85%;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(4, minmax(200px, 500px));
-  grid-template-rows: repeat(4, minmax(200px, 500px));
   justify-content: center;
   grid-gap: 0.5rem;
   cursor: pointer;
   border-radius: 1.5rem;
   overflow: hidden;
 }
+#pexels-main .group-grid {
+  grid-template-columns: repeat(4, minmax(200px, 500px));
+  grid-template-rows: repeat(4, minmax(200px, 500px));
+}
+#pexels-main .single-grid {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
 #pexels-main img {
   cursor: pointer;
-  z-index: -1;
 }
 #pexels-main .images {
   height: 100%;
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  cursor: none;
 }
 #pexels-main .image-0 {
   grid-column: 1/2;
@@ -89,10 +108,8 @@ html {
   z-index: 1;
 }
 #pexels-main .fa-solid {
-  position: absolute;
   color: black;
   font-size: 5rem;
-  opacity: 0;
 }
 #pexels-main .fa-solid:hover {
   display: block;

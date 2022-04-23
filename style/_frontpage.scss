@@ -3,7 +3,7 @@
    
     .title-container{
         height: 10vh;
-        background-color: aqua;
+        // background-color: aqua;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -15,7 +15,7 @@
     }
     .search-bar-container{
         height: 15vh;
-        background-color: aquamarine;
+        // background-color: aquamarine;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -26,31 +26,55 @@
             padding: .2rem;
         }
     }
+
+    .app-navigation-container{
+        height: 7vh;
+        // background-color: aqua;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 50%;
+        margin: auto;
+        position: relative;
+        
+        button{
+            cursor: pointer;
+            border: none;
+            padding: 1rem 1.5rem;
+            background-color: beige;
+            border-radius: .8rem;
+            box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
+        }
+    }
     .pexel-gallery-container{
         height: 65vh;
-        // background-color: rgb(255, 200, 127);
         width: 85%;
         margin: auto;
         display: grid;
-        grid-template-columns: repeat(4, minmax(200px, 500px));
-        grid-template-rows: repeat(4, minmax(200px, 500px));
         justify-content: center;
         grid-gap: .5rem;
         cursor: pointer;
         border-radius: 1.5rem;
         overflow: hidden;
     }
-
+    //app will initially load with this class on every photo
+    .group-grid{
+        grid-template-columns: repeat(4, minmax(200px, 500px));
+        grid-template-rows: repeat(4, minmax(200px, 500px));
+    }
+    //app will then remove group-grid, and add single grid 
+    .single-grid{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
     img{
         cursor: pointer;
-        z-index: -1;
+        
     }
     .images{
         height: 100%;
         width: 100%;
-        object-fit: cover;
-        cursor: none;
-        
+        object-fit: cover;        
     }
     .image-0{
         grid-column: 1 / 2;
@@ -60,12 +84,6 @@
     .image-1{
         grid-column: 2 / 3;
         grid-row: 1 / 2;
-
-        // &:hover{
-        //     overflow:visible;
-        //     height: 100%;
-        //     width: 100%;
-        // }
     }
     .image-2{
         grid-column: 3 / 4;
@@ -101,11 +119,11 @@
         
     }
     .fa-solid{
-        position: absolute; 
+        // position: absolute; 
         color: black;
         font-size: 5rem;
         // display: none;
-        opacity: 0;
+        // opacity: 0;
         &:hover{
             display: block;
         }
