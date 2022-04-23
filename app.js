@@ -4,15 +4,22 @@ const galleryContainer = document.querySelector('.pexel-gallery-container');
 const homeBtn = document.querySelector('#home-Btn');
 const previousBtn = document.querySelector('#previous-Btn');
 const forwardBtn = document.querySelector('#forward-Btn');
+const pageNum = document.querySelector('#page-number');
+//NEXT PAGE BUTTONS
+const pageNextBtn = document.querySelector('.fa-angle-right');
+const pagePreviousBtn = document.querySelector('.fa-angle-left');
 
 const ImageStorage = []; 
-
+//global variables 
+let currentPageNum = 1; 
 
 //addEventListeners 
 galleryContainer.addEventListener('click', galleryUserClick);
 homeBtn.addEventListener('click', homeUserClick);
 forwardBtn.addEventListener('click', forward);
 previousBtn.addEventListener('click', previous);
+pageNextBtn.addEventListener('click', nextPage);
+pagePreviousBtn.addEventListener('click', previousPage);
 
 //this keeps track of the 'next' or 'previous' image within the ARRAY IMAGESTORAGE[]
 let imageCurrentIndexLocation;
@@ -116,6 +123,12 @@ async function pullPhotosFromApi (currentPage){
             authorization: PEXEL_KEY
         }
     })
+    //remove items before we switch to the next page.
+    const images = document.querySelectorAll('.images');
+    const ArrayImages = Array.from(images);
+    ArrayImages.forEach((image, index)=>{
+        image.remove();
+    });
     //empty array before beginning
     ImageStorage.slice(0, ImageStorage.length);
     const photos = await result.json();
@@ -129,4 +142,16 @@ async function pullPhotosFromApi (currentPage){
    });
 }
 
-pullPhotosFromApi(2);
+pullPhotosFromApi(1);
+
+function nextPage(e){
+    console.log(e);
+    currentPageNum++;
+    //update current page on website
+    pageNum.innerText = currentPageNum;
+    pullPhotosFromApi(currentPageNum);
+}
+
+function previousPage(e){
+    console.log(e);
+}   

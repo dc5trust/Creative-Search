@@ -58,10 +58,7 @@
         overflow: hidden;
     }
 
-    .next-page-container{
-        height: 8vh;
-        background-color: aqua;
-    }
+    
     //app will initially load with this class on every photo
     .group-grid{
         grid-template-columns: repeat(4, minmax(200px, 500px));
@@ -120,14 +117,28 @@
     
         
     }
-    .fa-solid{
-        // position: absolute; 
+    .fa-solid{ 
         color: black;
-        font-size: 5rem;
-        // display: none;
+        font-size: 2.5rem;
+        
+        padding: 1rem;
         // opacity: 0;
+        cursor: pointer;
         &:hover{
             display: block;
         }
+    }
+}
+
+.next-page-container{
+    height: 8vh;
+    // background-color: aqua;
+    display: flex;
+    width: 12.5%;
+    margin: auto;
+    justify-content: space-around;
+    align-items: center;    
+    #page-number{
+        font-size: 2.5rem;
     }
 }
