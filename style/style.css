@@ -72,9 +72,6 @@ html {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
 }
-#pexels-main img {
-  cursor: pointer;
-}
 #pexels-main .images {
   height: 100%;
   width: 100%;

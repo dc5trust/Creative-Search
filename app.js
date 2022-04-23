@@ -72,10 +72,13 @@ function homeUserClick(e){
         imageCurrentIndexLocation = 0;
         const newImageDiv = document.createElement('img');
         newImageDiv.classList.add('images');
+        // newImageDiv.style.objectFit = 'contain';
+        newImageDiv.setAttribute('style', 'object-fit: contain');
+        console.log(newImageDiv.style.objectFit);
         newImageDiv.src = ImageStorage[0];
         //restructure 'grid' with one image, the one selected by the user 
         restructureGridWithOneImage(newImageDiv);
-        homeBtn.innerHTML = 'MULTI-IMAGE VIEW';
+        homeBtn.innerText = 'MULTI-IMAGE VIEW';
     }
     
 }
@@ -93,6 +96,7 @@ function galleryUserClick(e){
     imageClickedOn.classList.remove(imageClickedOn.classList[2]);
     imageCurrentIndexLocation = parseInt(imageClickedOn.classList[1]);
     console.log(imageCurrentIndexLocation);
+    imageClickedOn.setAttribute('style', 'object-fit: contain');
     //restructure 'grid' with one image, the one selected by the user 
     restructureGridWithOneImage(imageClickedOn);
     homeBtn.innerHTML = 'MULTI-IMAGE VIEW';
@@ -125,4 +129,4 @@ async function pullPhotosFromApi (currentPage){
    });
 }
 
-pullPhotosFromApi(1);
+pullPhotosFromApi(2);

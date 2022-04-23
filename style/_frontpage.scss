@@ -72,14 +72,11 @@
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
     }
-    img{
-        cursor: pointer;
-        
-    }
     .images{
         height: 100%;
         width: 100%;
-        object-fit: cover;        
+        object-fit: cover;       
+        // cursor: pointer; 
     }
     .image-0{
         grid-column: 1 / 2;
