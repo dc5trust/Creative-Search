@@ -51,18 +51,34 @@ function previous(){
 }
 
 function homeUserClick(e){
-    console.log(e);
-    //delete the one image and recall pullPhotosFromAPI 
-    const images = document.querySelector('.images').remove();
-    //re-add the original grid outline
-    galleryContainer.classList.remove('single-grid');
-    galleryContainer.classList.add('group-grid');
-    //maybe pull images from 'imageStorage' rather than directly from API
-    pullPhotosFromApi();
+    console.log(homeBtn.innerText);
+    if(homeBtn.innerText === 'MULTI-IMAGE VIEW'){
+        console.log(e);
+        //delete the one image and recall pullPhotosFromAPI 
+        const images = document.querySelector('.images').remove();
+        //re-add the original grid outline
+        galleryContainer.classList.remove('single-grid');
+        galleryContainer.classList.add('group-grid');
+        //maybe pull images from 'imageStorage' rather than directly from API
+        pullPhotosFromApi();
+        homeBtn.innerText = 'SINGLE IMAGE VIEW';
+    }else if(homeBtn.innerText === 'SINGLE IMAGE VIEW'){
+        const images = document.querySelectorAll('.images');
+        const ArrayImages = Array.from(images);
+        ArrayImages.forEach((image, index)=>{
+            image.remove();
+        });
+        //imagecurrentindexlocation, let's forward/previus button work with the array of images without it, it will not know where to go. We begin at ZERO, as that's the default location upon pressing single image view
+        imageCurrentIndexLocation = 0;
+        const newImageDiv = document.createElement('img');
+        newImageDiv.classList.add('images');
+        newImageDiv.src = ImageStorage[0];
+        //restructure 'grid' with one image, the one selected by the user 
+        restructureGridWithOneImage(newImageDiv);
+        homeBtn.innerHTML = 'MULTI-IMAGE VIEW';
+    }
+    
 }
-
-
-
 
 function galleryUserClick(e){
     console.log(e.target);
@@ -79,30 +95,29 @@ function galleryUserClick(e){
     console.log(imageCurrentIndexLocation);
     //restructure 'grid' with one image, the one selected by the user 
     restructureGridWithOneImage(imageClickedOn);
+    homeBtn.innerHTML = 'MULTI-IMAGE VIEW';
     // console.log(ImageStorage.length);
 }
 
 function restructureGridWithOneImage(imageSelected){
     //modify grid for only one image 
-    // galleryContainer.style.gridTemplateColumns = `1fr`
-    // galleryContainer.style.gridTemplateRows = `1fr`
-    // galleryContainer.style.alignContent = 'center';
-    // galleryContainer.style.justifyContent = 'center';
     galleryContainer.classList.remove('group-grid');
     galleryContainer.classList.add('single-grid');
     galleryContainer.append(imageSelected);
 }
 
-async function pullPhotosFromApi (){
-    const result = await fetch('https://api.pexels.com/v1/curated?page=1&per_page=14',{
+async function pullPhotosFromApi (currentPage){
+    const result = await fetch(`https://api.pexels.com/v1/curated?page=${currentPage}&per_page=14`,{
         headers: {
             authorization: PEXEL_KEY
         }
     })
+    //empty array before beginning
+    ImageStorage.slice(0, ImageStorage.length);
     const photos = await result.json();
     photos.photos.forEach((photo, index)=>{
     const imgContainer = document.createElement('img');
-    ImageStorage.push(photo.src.original);
+    ImageStorage.push(photo.src.portrait);
     imgContainer.src = photo.src.original;
     imgContainer.setAttribute('class',  `images ${index} image-${index}` );
     galleryContainer.classList.add('group-grid');
@@ -110,4 +125,4 @@ async function pullPhotosFromApi (){
    });
 }
 
-pullPhotosFromApi();
+pullPhotosFromApi(1);

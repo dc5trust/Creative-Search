@@ -22,7 +22,7 @@ html {
   font-family: "Dancing Script", cursive, sans-serif;
 }
 #pexels-main .search-bar-container {
-  height: 15vh;
+  height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,7 +45,7 @@ html {
   cursor: pointer;
   border: none;
   padding: 1rem 1.5rem;
-  background-color: beige;
+  background-color: rgb(255, 126, 112);
   border-radius: 0.8rem;
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.15);
 }
@@ -59,6 +59,10 @@ html {
   cursor: pointer;
   border-radius: 1.5rem;
   overflow: hidden;
+}
+#pexels-main .next-page-container {
+  height: 8vh;
+  background-color: aqua;
 }
 #pexels-main .group-grid {
   grid-template-columns: repeat(4, minmax(200px, 500px));

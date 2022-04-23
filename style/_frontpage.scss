@@ -14,7 +14,7 @@
         }
     }
     .search-bar-container{
-        height: 15vh;
+        height: 10vh;
         // background-color: aquamarine;
         display: flex;
         justify-content: center;
@@ -41,7 +41,7 @@
             cursor: pointer;
             border: none;
             padding: 1rem 1.5rem;
-            background-color: beige;
+            background-color: rgb(255, 126, 112);
             border-radius: .8rem;
             box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
         }
@@ -56,6 +56,11 @@
         cursor: pointer;
         border-radius: 1.5rem;
         overflow: hidden;
+    }
+
+    .next-page-container{
+        height: 8vh;
+        background-color: aqua;
     }
     //app will initially load with this class on every photo
     .group-grid{
