@@ -6,34 +6,68 @@
 
 html {
   font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  padding: 1rem 1.5rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.8rem;
+  background-color: rgb(53, 53, 53);
+  border-radius: 0.8rem;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+  color: white;
 }
 
 #pexels-main {
   min-height: 100vh;
 }
 #pexels-main .title-container {
-  height: 10vh;
+  height: 13vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 #pexels-main .title-container .title {
-  font-size: 7rem;
+  font-size: 12rem;
   font-family: "Dancing Script", cursive, sans-serif;
 }
 #pexels-main .search-bar-container {
-  height: 10vh;
+  height: 7vh;
+  background-color: rgb(77, 77, 76);
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  width: 35%;
+  margin: auto;
+  border-radius: 2rem;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.15);
 }
 #pexels-main .search-bar-container #search-bar {
-  font-size: 4rem;
-  border-radius: 2.3rem;
-  padding: 0.2rem;
+  font-size: 2.5rem;
+  border-radius: 1rem;
+  padding: 0.9rem;
+  outline: none;
+  border: none;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+}
+#pexels-main .search-bar-container #search-btn {
+  font-size: 2.3rem;
+  border-radius: 0;
+  background-color: rgb(255, 255, 255);
+  border: 0.5px solid black;
+  border-radius: 1rem;
+  color: black;
+}
+#pexels-main .search-bar-container #search-btn:hover {
+  background-color: black;
+  color: white;
 }
 #pexels-main .app-navigation-container {
   height: 7vh;
+  border-radius: 2rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -42,12 +76,12 @@ html {
   position: relative;
 }
 #pexels-main .app-navigation-container button {
-  cursor: pointer;
-  border: none;
-  padding: 1rem 1.5rem;
-  background-color: rgb(255, 126, 112);
-  border-radius: 0.8rem;
-  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+  border: 1px solid transparent;
+}
+#pexels-main .app-navigation-container button:hover {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  border: 1px solid black;
 }
 #pexels-main .pexel-gallery-container {
   height: 65vh;
@@ -65,8 +99,10 @@ html {
   grid-template-rows: repeat(4, minmax(200px, 500px));
 }
 #pexels-main .single-grid {
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: 800px;
+  grid-template-rows: 800px;
+  justify-content: center;
+  align-content: center;
 }
 #pexels-main .images {
   height: 100%;
@@ -124,4 +160,8 @@ html {
 }
 .next-page-container #page-number {
   font-size: 2.5rem;
+}
+
+#previous-Btn, #forward-Btn {
+  opacity: 0;
 }/*# sourceMappingURL=style.css.map */

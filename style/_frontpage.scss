@@ -2,49 +2,69 @@
     min-height: 100vh;
    
     .title-container{
-        height: 10vh;
-        // background-color: aqua;
+        height: 13vh;
         display: flex;
         justify-content: center;
         align-items: center;
-
+        // background-color: aqua;
         .title{
-            font-size: 7rem;
+            font-size: 12rem;
             font-family: 'Dancing Script', cursive, sans-serif;
         }
     }
     .search-bar-container{
-        height: 10vh;
-        // background-color: aquamarine;
+        height: 7vh;
+        background-color: rgb(77, 77, 76);
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
-
+        width: 35%;
+        margin: auto;
+        border-radius: 2rem;
+        box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
         #search-bar{
-            font-size: 4rem;
-            border-radius: 2.3rem;
-            padding: .2rem;
+            font-size: 2.5rem;
+            border-radius: 1rem;
+            padding: .9rem;
+            outline: none;
+            border: none;
+            box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
+        }
+        #search-btn{
+            font-size: 2.3rem;
+            border-radius: 0;
+            background-color: rgb(255, 255, 255);
+            border: .5px solid black;
+            border-radius: 1rem;
+            color: black;
+
+            &:hover{
+                background-color: black;
+                color: white;
+            }
         }
     }
 
     .app-navigation-container{
         height: 7vh;
-        // background-color: aqua;
+        // background-color: rgb(205, 203, 203);
+        border-radius: 2rem;
         display: flex;
         justify-content: space-around;
         align-items: center;
         width: 50%;
         margin: auto;
         position: relative;
-        
         button{
-            cursor: pointer;
-            border: none;
-            padding: 1rem 1.5rem;
-            background-color: rgb(255, 126, 112);
-            border-radius: .8rem;
-            box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
+            border: 1px solid transparent;
+            &:hover{
+                background-color: rgb(255, 255, 255);
+                color: black;
+                border: 1px solid black;
+            }
         }
+        
+      
     }
     .pexel-gallery-container{
         height: 65vh;
@@ -56,6 +76,8 @@
         cursor: pointer;
         border-radius: 1.5rem;
         overflow: hidden;
+        // border: .5px solid black;
+        
     }
 
     
@@ -66,13 +88,16 @@
     }
     //app will then remove group-grid, and add single grid 
     .single-grid{
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr;
+        grid-template-columns: 800px;
+        grid-template-rows: 800px;
+        justify-content: center;
+        align-content: center;
     }
     .images{
         height: 100%;
         width: 100%;
-        object-fit: cover;       
+        object-fit: cover;     
+        // box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);  
         // cursor: pointer; 
     }
     .image-0{
@@ -142,3 +167,10 @@
         font-size: 2.5rem;
     }
 }
+
+
+#previous-Btn, #forward-Btn{
+        opacity: 0;
+    }
+
+    

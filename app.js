@@ -1,10 +1,13 @@
 const PEXEL_KEY = '563492ad6f9170000100000121493e52a95d4994944fe8904822e918';
-//
+//search  
+const searchBarText = document.querySelector('#search-bar');
+//elements 
 const galleryContainer = document.querySelector('.pexel-gallery-container');
 const homeBtn = document.querySelector('#home-Btn');
 const previousBtn = document.querySelector('#previous-Btn');
 const forwardBtn = document.querySelector('#forward-Btn');
 const pageNum = document.querySelector('#page-number');
+const nextPageContainer = document.querySelector('.next-page-container');
 //NEXT PAGE BUTTONS
 const pageNextBtn = document.querySelector('.fa-angle-right');
 const pagePreviousBtn = document.querySelector('.fa-angle-left');
@@ -33,6 +36,7 @@ function forward(){
         //create new DIV to hold src from array from 'imagecurrentindexlocation'
         const newImageDiv = document.createElement('img');
         newImageDiv.classList.add('images');
+        newImageDiv.setAttribute('style', 'object-fit: contain');
         newImageDiv.classList.add(`${imageCurrentIndexLocation}`)
         newImageDiv.src = ImageStorage[imageCurrentIndexLocation];
         galleryContainer.append(newImageDiv);
@@ -49,6 +53,7 @@ function previous(){
         //create new DIV to hold src from array from 'imagecurrentindexlocation'
         const newImageDiv = document.createElement('img');
         newImageDiv.classList.add('images');
+        newImageDiv.setAttribute('style', 'object-fit: contain');
         newImageDiv.classList.add(`${imageCurrentIndexLocation}`)
         newImageDiv.src = ImageStorage[imageCurrentIndexLocation];
         galleryContainer.append(newImageDiv);
@@ -66,8 +71,12 @@ function homeUserClick(e){
         //re-add the original grid outline
         galleryContainer.classList.remove('single-grid');
         galleryContainer.classList.add('group-grid');
+        nextPageContainer.setAttribute('style', 'opacity: 1');
+        //reveal Previous & forward Button for single page view
+        previousBtn.setAttribute('style', 'opacity: 0');
+        forwardBtn.setAttribute('style', 'opacity: 0');
         //maybe pull images from 'imageStorage' rather than directly from API
-        pullPhotosFromApi();
+        pullPhotosFromApi(currentPageNum);
         homeBtn.innerText = 'SINGLE IMAGE VIEW';
     }else if(homeBtn.innerText === 'SINGLE IMAGE VIEW'){
         const images = document.querySelectorAll('.images');
@@ -80,9 +89,14 @@ function homeUserClick(e){
         const newImageDiv = document.createElement('img');
         newImageDiv.classList.add('images');
         // newImageDiv.style.objectFit = 'contain';
-        newImageDiv.setAttribute('style', 'object-fit: contain');
+        // newImageDiv.setAttribute('style', 'object-fit: contain');
+        nextPageContainer.setAttribute('style', 'opacity: 0');
         console.log(newImageDiv.style.objectFit);
         newImageDiv.src = ImageStorage[0];
+        //hide previous & forward buttons 
+        previousBtn.setAttribute('style', 'opacity: 1');
+        forwardBtn.setAttribute('style', 'opacity: 1');
+
         //restructure 'grid' with one image, the one selected by the user 
         restructureGridWithOneImage(newImageDiv);
         homeBtn.innerText = 'MULTI-IMAGE VIEW';
@@ -99,6 +113,11 @@ function galleryUserClick(e){
     ArrayImages.forEach((image, index)=>{
         image.remove();
     });
+    //hide previous & forward buttons 
+    previousBtn.setAttribute('style', 'opacity: 1');
+    forwardBtn.setAttribute('style', 'opacity: 1');
+    //hide the next page & previous page buttons ( container )
+    nextPageContainer.setAttribute('style', 'opacity: 0');
     //remove the second class from image "image-NUMBER" which has the grid format
     imageClickedOn.classList.remove(imageClickedOn.classList[2]);
     imageCurrentIndexLocation = parseInt(imageClickedOn.classList[1]);
@@ -130,7 +149,8 @@ async function pullPhotosFromApi (currentPage){
         image.remove();
     });
     //empty array before beginning
-    ImageStorage.slice(0, ImageStorage.length);
+    ImageStorage.splice(0, ImageStorage.length);
+    console.log(ImageStorage.length, 'image storage')
     const photos = await result.json();
     photos.photos.forEach((photo, index)=>{
     const imgContainer = document.createElement('img');
@@ -145,7 +165,8 @@ async function pullPhotosFromApi (currentPage){
 pullPhotosFromApi(1);
 
 function nextPage(e){
-    console.log(e);
+    if(homeBtn.innerText === 'MULTI-IMAGE VIEW') return
+
     currentPageNum++;
     //update current page on website
     pageNum.innerText = currentPageNum;
@@ -153,5 +174,14 @@ function nextPage(e){
 }
 
 function previousPage(e){
+    if(homeBtn.innerText === 'MULTI-IMAGE VIEW') return
+    
+    if(currentPageNum === 1){
+        return
+    }else if (currentPageNum > 1){
+        currentPageNum--;
+    }
+    pageNum.innerText = currentPageNum;
+    pullPhotosFromApi(currentPageNum);
     console.log(e);
 }   
