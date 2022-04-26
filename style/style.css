@@ -31,7 +31,7 @@ button {
   align-items: center;
 }
 #pexels-main .title-container .title {
-  font-size: 12rem;
+  font-size: 10rem;
   font-family: "Dancing Script", cursive, sans-serif;
 }
 #pexels-main .search-bar-container {
@@ -117,7 +117,6 @@ button {
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  background-color: azure;
 }
 #pexels-main .image-0 {
   grid-column: 1/2;
@@ -150,7 +149,6 @@ button {
   z-index: 1;
 }
 #pexels-main .fa-solid {
-  color: black;
   font-size: 2.5rem;
   padding: 1rem;
   cursor: pointer;
@@ -169,6 +167,9 @@ button {
 }
 .next-page-container #page-number {
   font-size: 2.5rem;
+}
+.next-page-container .fa-angle-left {
+  color: grey;
 }
 
 #previous-Btn, #forward-Btn {
@@ -334,8 +335,8 @@ button {
     overflow: scroll;
   }
   #pexels-main .group-grid {
-    grid-template-columns: repeat(2, minmax(100px, 400px));
-    grid-template-rows: repeat(6, minmax(100px, 400px));
+    grid-template-columns: repeat(2, minmax(60px, 400px));
+    grid-template-rows: repeat(6, minmax(60px, 400px));
   }
   #pexels-main .image-0 {
     grid-column: 1/2;

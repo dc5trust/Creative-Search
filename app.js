@@ -38,39 +38,44 @@ searchBtn.addEventListener('click', search);
 let imageCurrentIndexLocation;
 
 async function search(currentPage = 1){
-    isSearchActive = true;
-    //this keeps the same search query 'word' for each iterating page that follows
-    if(searchBarText.value !== ''){
-        query = searchBarText.value;
-        searchBarText.value = ''; 
-        currentPageNum = 1;
-        pageNum.innerText = currentPageNum;
-    }
-    console.log(query);
-    console.log(currentPage)
-    const result = await fetch(`https://api.pexels.com/v1/search/?query=${query}&page=${currentPage}&per_page=12`,{
-        headers: {
-            authorization: PEXEL_KEY
+    try{
+            isSearchActive = true;
+        //this keeps the same search query 'word' for each iterating page that follows
+        if(searchBarText.value !== ''){
+            query = searchBarText.value;
+            searchBarText.value = ''; 
+            currentPageNum = 1;
+            pageNum.innerText = currentPageNum;
         }
-    })
-     //remove items before we switch to the next page.
-     const images = document.querySelectorAll('.images');
-     const ArrayImages = Array.from(images);
-     ArrayImages.forEach((image, index)=>{
-         image.remove();
-     });
-     //empty array before beginning
-     ImageStorage.splice(0, ImageStorage.length);
-     console.log(ImageStorage.length, 'image storage')
-     const photos = await result.json();
-     photos.photos.forEach((photo, index)=>{
-        const imgContainer = document.createElement('img');
-        ImageStorage.push(photo.src.portrait);
-        imgContainer.src = photo.src.original;
-        imgContainer.setAttribute('class',  `images ${index} image-${index}` );
-        galleryContainer.classList.add('group-grid');
-        galleryContainer.append(imgContainer);
-    });
+        console.log(query);
+        console.log(currentPage)
+        const result = await fetch(`https://api.pexels.com/v1/search/?query=${query}&page=${currentPage}&per_page=12`,{
+            headers: {
+                authorization: PEXEL_KEY
+            }
+        })
+        //remove items before we switch to the next page.
+        const images = document.querySelectorAll('.images');
+        const ArrayImages = Array.from(images);
+        ArrayImages.forEach((image, index)=>{
+            image.remove();
+        });
+        //empty array before beginning
+        ImageStorage.splice(0, ImageStorage.length);
+        console.log(ImageStorage.length, 'image storage')
+        const photos = await result.json();
+        photos.photos.forEach((photo, index)=>{
+            const imgContainer = document.createElement('img');
+            ImageStorage.push(photo.src.portrait);
+            imgContainer.src = photo.src.original;
+            imgContainer.setAttribute('class',  `images ${index} image-${index}` );
+            galleryContainer.classList.add('group-grid');
+            galleryContainer.append(imgContainer);
+        });
+    }catch(error){
+        console.log(error);
+    }
+    
     
 }
 
@@ -136,12 +141,10 @@ function homeUserClick(e){
         ArrayImages.forEach((image, index)=>{
             image.remove();
         });
-        //imagecurrentindexlocation, let's forward/previus button work with the array of images without it, it will not know where to go. We begin at ZERO, as that's the default location upon pressing single image view
+        //imagecurrentindexlocation, it lets forward/previus button work without the user clicking on an image, it will selected the zero index and always start at the first photo. ( when switching from multiview to single view image)
         imageCurrentIndexLocation = 0;
         const newImageDiv = document.createElement('img');
         newImageDiv.classList.add('images');
-        // newImageDiv.style.objectFit = 'contain';
-        // newImageDiv.setAttribute('style', 'object-fit: contain');
         nextPageContainer.setAttribute('style', 'opacity: 0');
         console.log(newImageDiv.style.objectFit);
         newImageDiv.src = ImageStorage[0];
@@ -149,7 +152,7 @@ function homeUserClick(e){
         previousBtn.setAttribute('style', 'opacity: 1');
         forwardBtn.setAttribute('style', 'opacity: 1');
 
-        //restructure 'grid' with one image, the one selected by the user 
+        //restructure 'grid' with one image, the one selected by the user or when single image view is selected
         restructureGridWithOneImage(newImageDiv);
         imageViewBtn.innerText = 'MULTI-IMAGE VIEW';
     }
@@ -189,28 +192,33 @@ function restructureGridWithOneImage(imageSelected){
 }
 
 async function pullPhotosFromApi (currentPage = 1){
-    const result = await fetch(`https://api.pexels.com/v1/curated?page=${currentPage}&per_page=12`,{
-        headers: {
-            authorization: PEXEL_KEY
-        }
-    })
-    //remove items before we switch to the next page.
-    const images = document.querySelectorAll('.images');
-    const ArrayImages = Array.from(images);
-    ArrayImages.forEach((image, index)=>{
-        image.remove();
-    });
-    //empty array before beginning
-    ImageStorage.splice(0, ImageStorage.length);
-    const photos = await result.json();
-    photos.photos.forEach((photo, index)=>{
-    const imgContainer = document.createElement('img');
-    ImageStorage.push(photo.src.portrait);
-    imgContainer.src = photo.src.original;
-    imgContainer.setAttribute('class',  `images ${index} image-${index}` );
-    galleryContainer.classList.add('group-grid');
-    galleryContainer.append(imgContainer);
-   });
+    try{
+        const result = await fetch(`https://api.pexels.com/v1/curated?page=${currentPage}&per_page=12`,{
+            headers: {
+                authorization: PEXEL_KEY
+            }
+        })
+        //remove items before we switch to the next page.
+        const images = document.querySelectorAll('.images');
+        const ArrayImages = Array.from(images);
+        ArrayImages.forEach((image, index)=>{
+            image.remove();
+        });
+        //empty array before beginning
+        ImageStorage.splice(0, ImageStorage.length);
+        const photos = await result.json();
+        photos.photos.forEach((photo, index)=>{
+            const imgContainer = document.createElement('img');
+            ImageStorage.push(photo.src.portrait);
+            imgContainer.src = photo.src.original;
+            imgContainer.setAttribute('class',  `images ${index} image-${index}` );
+            galleryContainer.classList.add('group-grid');
+            galleryContainer.append(imgContainer);
+       });
+    }catch(error){
+        console.log(error);
+    }
+   
 }
 
 pullPhotosFromApi(1);
@@ -218,6 +226,7 @@ pullPhotosFromApi(1);
 function nextPage(e){
     if(imageViewBtn.innerText === 'MULTI-IMAGE VIEW') return
     currentPageNum++;
+    pagePreviousBtn.setAttribute('style', 'color: black');
     //update current page on website
     if(isSearchActive === false){
         pageNum.innerText = currentPageNum;
@@ -235,9 +244,10 @@ function previousPage(e){
     if(currentPageNum === 1){
         return
     }else if (currentPageNum > 1){
+        pagePreviousBtn.setAttribute('style', 'color: grey');
         currentPageNum--;
     }
-
+    //if something was searched, (true) next/previous pages will now continue searching that query word for the next pages until it is changed. If nothing was searching 'false', it will pull from trending in every page that follows.
     if(isSearchActive === false){
         pageNum.innerText = currentPageNum;
         pullPhotosFromApi(currentPageNum);
@@ -245,7 +255,5 @@ function previousPage(e){
         pageNum.innerText = currentPageNum;
         search(currentPageNum);
     }
-    // pageNum.innerText = currentPageNum;
-    // pullPhotosFromApi(currentPageNum);
-    // console.log(e);
+    
 }   
