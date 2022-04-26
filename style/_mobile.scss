@@ -1,0 +1,367 @@
+@media only screen and (max-width:1120px){
+    // body{
+    //     display: none;
+    // }
+
+    #pexels-main{
+        .search-bar-container{
+            // height: 7vh;
+            // background-color: rgb(77, 77, 76);
+            // display: flex;
+            // justify-content: space-around;
+            // align-items: center;
+            width: 35%;
+            // margin: auto;
+            // border-radius: 2rem;
+            // box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
+            #search-bar{
+                font-size: 1.8rem;
+                // border-radius: 1rem;
+                // padding: .9rem;
+                // outline: none;
+                // border: none;
+                // box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
+            }
+            #search-btn{
+                font-size: 1.8rem;
+                // border-radius: 0;
+                // background-color: rgb(255, 255, 255);
+                // border: .5px solid black;
+                // border-radius: 1rem;
+                // color: black;
+    
+                &:hover{
+                    // background-color: black;
+                    // color: white;
+                }
+            }
+            .home{
+                // font-size: 1.5rem;
+                // border-radius: 0;
+                // background-color: rgb(255, 255, 255);
+                // border: .5px solid black;
+                // border-radius: 1rem;
+                // color: black;
+            }
+        }
+    }
+    
+}
+@media only screen and (max-width: 970px) {
+
+    button{
+        // cursor: pointer;
+        // border: none;
+        padding: 1rem 1.5rem;
+        // font-family: 'Roboto', sans-serif;
+        font-size: 1rem;
+        // background-color: rgb(53, 53, 53);
+        // border-radius: .8rem;
+        // box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
+        // color: white;
+    }
+
+    #pexels-main{
+        .title-container{
+            // height: 13vh;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+            // background-color: aqua;
+            .title{
+                font-size: 7rem;
+                // font-family: 'Dancing Script', cursive, sans-serif;
+            }
+        }
+        .search-bar-container{
+            // height: 7vh;
+            // background-color: rgb(77, 77, 76);
+            // display: flex;
+            // justify-content: space-around;
+            // align-items: center;
+            width: 35%;
+            // margin: auto;
+            // border-radius: 2rem;
+            // box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
+            #search-bar{
+                font-size: 1.3rem;
+                // border-radius: 1rem;
+                // padding: .9rem;
+                // outline: none;
+                // border: none;
+                // box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
+            }
+            #search-btn{
+                font-size: 1.3rem;
+                // border-radius: 0;
+                // background-color: rgb(255, 255, 255);
+                // border: .5px solid black;
+                // border-radius: 1rem;
+                // color: black;
+    
+                &:hover{
+                    // background-color: black;
+                    // color: white;
+                }
+            }
+            .home{
+                // font-size: 1.5rem;
+                // border-radius: 0;
+                // background-color: rgb(255, 255, 255);
+                // border: .5px solid black;
+                // border-radius: 1rem;
+                // color: black;
+            }
+        }
+
+        .app-navigation-container{
+            // height: 7vh;
+            // background-color: rgb(205, 203, 203);
+            // border-radius: 2rem;
+            // display: flex;
+            // justify-content: space-around;
+            // align-items: center;
+            // width: 50%;
+            // margin: auto;
+            // position: relative;
+            button{
+                // border: 1px solid transparent;
+                &:hover{
+                    // background-color: rgb(255, 255, 255);
+                    // color: black;
+                    // border: 1px solid black;
+                }
+            }
+    
+        }
+        .pexel-gallery-container{
+            // height: 65vh;
+            // width: 85%;
+            // margin: auto;
+            // display: grid;
+            // justify-content: center;
+            // align-content: center;
+            // grid-gap: .5rem;
+            // cursor: pointer;
+            // border-radius: 1.5rem;
+            // overflow: hidden;
+            // background-color: aqua;
+            // border: .5px solid black;
+        }
+    
+        //app will initially load with this class on every photo
+        .group-grid{
+            grid-template-columns: repeat(4, minmax(100px, 400px));
+            grid-template-rows: repeat(4, minmax(100px, 400px));
+        }
+
+        .image-0{
+        
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            
+        }
+        .image-1{
+            
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+        .image-2{
+           
+            grid-column: 3 / 4;
+            grid-row: 1 / 2;
+        }
+        .image-3{
+            
+        }
+        .image-4{
+            grid-column: 4 / 5;
+            grid-row: 1 / 3;
+        }
+        .image-7{
+            grid-column: 2 / 3;
+            grid-row:  3 /5;
+            
+        }
+        .image-8{
+            grid-column: 3 / 4;
+            grid-row: 3 / 5;
+        }
+    }
+
+    .next-page-container{
+        // height: 8vh;
+        // // background-color: aqua;
+        // display: flex;
+        // width: 12.5%;
+        // margin: auto;
+        // justify-content: space-around;
+        // align-items: center;    
+        #page-number{
+            // font-size: 2.5rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 692px) {
+    #pexels-main{
+        .title-container{
+            // height: 13vh;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+            // background-color: aqua;
+            .title{
+                font-size: 7rem;
+                // font-family: 'Dancing Script', cursive, sans-serif;
+            }
+        }
+        .search-bar-container{
+            // height: 7vh;
+            // background-color: rgb(77, 77, 76);
+            // display: flex;
+            // justify-content: space-around;
+            // align-items: center;
+            width: 55%;
+            // margin: auto;
+            // border-radius: 2rem;
+            // box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
+            #search-bar{
+                font-size: 1.3rem;
+                // border-radius: 1rem;
+                // padding: .9rem;
+                // outline: none;
+                // border: none;
+                // box-shadow: 0 15px 20px rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.15);
+            }
+            #search-btn{
+                font-size: 1.3rem;
+                // border-radius: 0;
+                // background-color: rgb(255, 255, 255);
+                // border: .5px solid black;
+                // border-radius: 1rem;
+                // color: black;
+    
+                &:hover{
+                    // background-color: black;
+                    // color: white;
+                }
+            }
+            .home{
+                // font-size: 1.5rem;
+                // border-radius: 0;
+                // background-color: rgb(255, 255, 255);
+                // border: .5px solid black;
+                // border-radius: 1rem;
+                // color: black;
+            }
+        }
+
+        .app-navigation-container{
+            // height: 7vh;
+            // background-color: rgb(205, 203, 203);
+            // border-radius: 2rem;
+            // display: flex;
+            // justify-content: space-around;
+            // align-items: center;
+            // width: 50%;
+            // margin: auto;
+            // position: relative;
+            button{
+                // border: 1px solid transparent;
+                &:hover{
+                    // background-color: rgb(255, 255, 255);
+                    // color: black;
+                    // border: 1px solid black;
+                }
+            }
+    
+        }
+        .pexel-gallery-container{
+            min-height: 65vh;
+            width: 95%;
+            // margin: auto;
+            // display: grid;
+            // justify-content: center;
+            // align-content: center;
+            // grid-gap: .5rem;
+            // cursor: pointer;
+            border-radius: 0;
+            // overflow: hidden;
+            // background-color: aqua;
+            // border: .5px solid black;
+        }
+    
+        //app will initially load with this class on every photo
+        .group-grid{
+            grid-template-columns: repeat(2, minmax(100px, 400px));
+            grid-template-rows: repeat(6, minmax(100px, 400px));
+        }
+
+        .image-0{
+            grid-column:1/2;
+            grid-row: 1/2;
+            
+        }
+        .image-1{
+            grid-column: 2/3;
+            grid-row: 1/2;
+        }
+        .image-2{
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+            // background-color: rgb(86, 94, 94);
+        }
+        .image-3{
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            // background-color: rgb(86, 94, 94);
+        }
+        .image-4{
+            grid-column: 1 / 2;
+            grid-row: 3 / 4 ;
+            // background-color: rgb(86, 94, 94);
+        }
+        .image-5{
+            grid-column: 2 / 3;
+            grid-row:  3 /4;
+            // background-color: rgb(47, 51, 51);
+        }
+        .image-6{
+            grid-column: 1 / 2;
+            grid-row:  4 / 5;
+            // background-color: rgb(172, 243, 243);
+        }
+        .image-7{
+            grid-column: 2 / 3;
+            grid-row:  4 / 5 ;
+            
+        }
+        .image-8{
+            grid-column: 1 / 2;
+            grid-row: 5 / 6;
+            // background-color: rgb(47, 58, 58);
+        }
+        .image-9{
+            grid-column: 2 / 3;
+            grid-row:  5 /6;
+            // background-color: rgb(172, 243, 243);
+        }
+        .image-10{
+            grid-column: 1 / 2;
+            grid-row:  6 / 7;
+            // background-color: rgb(172, 243, 243);
+        }
+        .image-11{
+            grid-column: 2 / 3;
+            grid-row:  6 /7;
+            // background-color: rgb(172, 243, 243);
+        }
+        .image-12{
+            grid-column: 1 / 3;
+            grid-row:  7 / 8;
+            // background-color: rgb(172, 243, 243);
+        }
+
+    }
+}

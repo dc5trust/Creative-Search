@@ -1,31 +1,75 @@
 const PEXEL_KEY = '563492ad6f9170000100000121493e52a95d4994944fe8904822e918';
 //search  
 const searchBarText = document.querySelector('#search-bar');
+const searchBtn = document.querySelector('#search-btn');
 //elements 
 const galleryContainer = document.querySelector('.pexel-gallery-container');
-const homeBtn = document.querySelector('#home-Btn');
+const homeBtn = document.querySelector('.home');
+//next image Buttons
+const imageViewBtn = document.querySelector('#image-view');
 const previousBtn = document.querySelector('#previous-Btn');
 const forwardBtn = document.querySelector('#forward-Btn');
-const pageNum = document.querySelector('#page-number');
-const nextPageContainer = document.querySelector('.next-page-container');
+
 //NEXT PAGE BUTTONS
+const nextPageContainer = document.querySelector('.next-page-container');
 const pageNextBtn = document.querySelector('.fa-angle-right');
 const pagePreviousBtn = document.querySelector('.fa-angle-left');
+const pageNum = document.querySelector('#page-number');
 
 const ImageStorage = []; 
 //global variables 
 let currentPageNum = 1; 
-
+//this will be used to determine which 'next page' will be used, either from trending or search results if user used the search bar 
+let isSearchActive = false;
+let query;
 //addEventListeners 
 galleryContainer.addEventListener('click', galleryUserClick);
-homeBtn.addEventListener('click', homeUserClick);
+imageViewBtn.addEventListener('click', homeUserClick);
 forwardBtn.addEventListener('click', forward);
 previousBtn.addEventListener('click', previous);
 pageNextBtn.addEventListener('click', nextPage);
 pagePreviousBtn.addEventListener('click', previousPage);
-
+searchBtn.addEventListener('click', search);
+// homeBtn.addEventListener('click', pullPhotosFromApi)
 //this keeps track of the 'next' or 'previous' image within the ARRAY IMAGESTORAGE[]
 let imageCurrentIndexLocation;
+
+async function search(currentPage = 1){
+    isSearchActive = true;
+    //this keeps the same search query 'word' for each iterating page that follows
+    if(searchBarText.value !== ''){
+        query = searchBarText.value;
+        searchBarText.value = ''; 
+        currentPageNum = 1;
+        pageNum.innerText = currentPageNum;
+    }
+    console.log(query);
+    console.log(currentPage)
+    const result = await fetch(`https://api.pexels.com/v1/search/?query=${query}&page=${currentPage}&per_page=12`,{
+        headers: {
+            authorization: PEXEL_KEY
+        }
+    })
+     //remove items before we switch to the next page.
+     const images = document.querySelectorAll('.images');
+     const ArrayImages = Array.from(images);
+     ArrayImages.forEach((image, index)=>{
+         image.remove();
+     });
+     //empty array before beginning
+     ImageStorage.splice(0, ImageStorage.length);
+     console.log(ImageStorage.length, 'image storage')
+     const photos = await result.json();
+     photos.photos.forEach((photo, index)=>{
+        const imgContainer = document.createElement('img');
+        ImageStorage.push(photo.src.portrait);
+        imgContainer.src = photo.src.original;
+        imgContainer.setAttribute('class',  `images ${index} image-${index}` );
+        galleryContainer.classList.add('group-grid');
+        galleryContainer.append(imgContainer);
+    });
+    
+}
 
 function forward(){
     //find location in the array ImageStorage; imageCurrentIndexLocation has Index location of image clicked within an array
@@ -63,8 +107,8 @@ function previous(){
 }
 
 function homeUserClick(e){
-    console.log(homeBtn.innerText);
-    if(homeBtn.innerText === 'MULTI-IMAGE VIEW'){
+    console.log(imageViewBtn.innerText);
+    if(imageViewBtn.innerText === 'MULTI-IMAGE VIEW'){
         console.log(e);
         //delete the one image and recall pullPhotosFromAPI 
         const images = document.querySelector('.images').remove();
@@ -76,9 +120,14 @@ function homeUserClick(e){
         previousBtn.setAttribute('style', 'opacity: 0');
         forwardBtn.setAttribute('style', 'opacity: 0');
         //maybe pull images from 'imageStorage' rather than directly from API
-        pullPhotosFromApi(currentPageNum);
-        homeBtn.innerText = 'SINGLE IMAGE VIEW';
-    }else if(homeBtn.innerText === 'SINGLE IMAGE VIEW'){
+        if(isSearchActive === false){
+            pullPhotosFromApi(currentPageNum);
+        }else if(isSearchActive){
+            search(currentPageNum);
+        }
+        
+        imageViewBtn.innerText = 'SINGLE IMAGE VIEW';
+    }else if(imageViewBtn.innerText === 'SINGLE IMAGE VIEW'){
         const images = document.querySelectorAll('.images');
         const ArrayImages = Array.from(images);
         ArrayImages.forEach((image, index)=>{
@@ -99,7 +148,7 @@ function homeUserClick(e){
 
         //restructure 'grid' with one image, the one selected by the user 
         restructureGridWithOneImage(newImageDiv);
-        homeBtn.innerText = 'MULTI-IMAGE VIEW';
+        imageViewBtn.innerText = 'MULTI-IMAGE VIEW';
     }
     
 }
@@ -125,7 +174,7 @@ function galleryUserClick(e){
     imageClickedOn.setAttribute('style', 'object-fit: contain');
     //restructure 'grid' with one image, the one selected by the user 
     restructureGridWithOneImage(imageClickedOn);
-    homeBtn.innerHTML = 'MULTI-IMAGE VIEW';
+    imageViewBtn.innerHTML = 'MULTI-IMAGE VIEW';
     // console.log(ImageStorage.length);
 }
 
@@ -136,8 +185,8 @@ function restructureGridWithOneImage(imageSelected){
     galleryContainer.append(imageSelected);
 }
 
-async function pullPhotosFromApi (currentPage){
-    const result = await fetch(`https://api.pexels.com/v1/curated?page=${currentPage}&per_page=14`,{
+async function pullPhotosFromApi (currentPage = 1){
+    const result = await fetch(`https://api.pexels.com/v1/curated?page=${currentPage}&per_page=12`,{
         headers: {
             authorization: PEXEL_KEY
         }
@@ -150,7 +199,6 @@ async function pullPhotosFromApi (currentPage){
     });
     //empty array before beginning
     ImageStorage.splice(0, ImageStorage.length);
-    console.log(ImageStorage.length, 'image storage')
     const photos = await result.json();
     photos.photos.forEach((photo, index)=>{
     const imgContainer = document.createElement('img');
@@ -165,16 +213,21 @@ async function pullPhotosFromApi (currentPage){
 pullPhotosFromApi(1);
 
 function nextPage(e){
-    if(homeBtn.innerText === 'MULTI-IMAGE VIEW') return
-
+    if(imageViewBtn.innerText === 'MULTI-IMAGE VIEW') return
     currentPageNum++;
     //update current page on website
-    pageNum.innerText = currentPageNum;
-    pullPhotosFromApi(currentPageNum);
+    if(isSearchActive === false){
+        pageNum.innerText = currentPageNum;
+        pullPhotosFromApi(currentPageNum);
+    }else if(isSearchActive === true){
+        pageNum.innerText = currentPageNum;
+        search(currentPageNum);
+    }
+    
 }
 
 function previousPage(e){
-    if(homeBtn.innerText === 'MULTI-IMAGE VIEW') return
+    if(imageViewBtn.innerText === 'MULTI-IMAGE VIEW') return
     
     if(currentPageNum === 1){
         return
