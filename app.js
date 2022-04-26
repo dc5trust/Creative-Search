@@ -16,7 +16,10 @@ const pageNextBtn = document.querySelector('.fa-angle-right');
 const pagePreviousBtn = document.querySelector('.fa-angle-left');
 const pageNum = document.querySelector('#page-number');
 
+//this holds all links for single view image, we use this to build single view image and change between images 
 const ImageStorage = []; 
+//this holds the full size URL when single view image is clicked on 
+const fullSizeImageStorage = [];
 //global variables 
 let currentPageNum = 1; 
 //this will be used to determine which 'next page' will be used, either from trending or search results if user used the search bar 
@@ -73,7 +76,7 @@ async function search(currentPage = 1){
 
 function forward(){
     //find location in the array ImageStorage; imageCurrentIndexLocation has Index location of image clicked within an array
-    if(imageCurrentIndexLocation < 13){
+    if(imageCurrentIndexLocation < 11){
         imageCurrentIndexLocation++;
         //delete current single image and replace with the following image from the array which holds a SRC 
         const images = document.querySelector('.images').remove();
@@ -84,7 +87,7 @@ function forward(){
         newImageDiv.classList.add(`${imageCurrentIndexLocation}`)
         newImageDiv.src = ImageStorage[imageCurrentIndexLocation];
         galleryContainer.append(newImageDiv);
-    }else if(imageCurrentIndexLocation > 13){
+    }else if(imageCurrentIndexLocation > 11){
         return 
     }
 }
@@ -234,7 +237,15 @@ function previousPage(e){
     }else if (currentPageNum > 1){
         currentPageNum--;
     }
-    pageNum.innerText = currentPageNum;
-    pullPhotosFromApi(currentPageNum);
-    console.log(e);
+
+    if(isSearchActive === false){
+        pageNum.innerText = currentPageNum;
+        pullPhotosFromApi(currentPageNum);
+    }else if(isSearchActive === true){
+        pageNum.innerText = currentPageNum;
+        search(currentPageNum);
+    }
+    // pageNum.innerText = currentPageNum;
+    // pullPhotosFromApi(currentPageNum);
+    // console.log(e);
 }   
