@@ -89,7 +89,6 @@ button {
 #pexels-main .app-navigation-container button:hover {
   background-color: rgb(255, 255, 255);
   color: black;
-  border: 1px solid black;
 }
 #pexels-main .pexel-gallery-container {
   height: 65vh;

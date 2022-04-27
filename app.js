@@ -18,8 +18,7 @@ const pageNum = document.querySelector('#page-number');
 
 //this holds all links for single view image, we use this to build single view image and change between images 
 const ImageStorage = []; 
-//this holds the full size URL when single view image is clicked on 
-const fullSizeImageStorage = [];
+
 //global variables 
 let currentPageNum = 1; 
 //this will be used to determine which 'next page' will be used, either from trending or search results if user used the search bar 
@@ -33,9 +32,20 @@ previousBtn.addEventListener('click', previous);
 pageNextBtn.addEventListener('click', nextPage);
 pagePreviousBtn.addEventListener('click', previousPage);
 searchBtn.addEventListener('click', search);
+searchBarText.addEventListener('keyup', enterKey);
 // homeBtn.addEventListener('click', pullPhotosFromApi)
 //this keeps track of the 'next' or 'previous' image within the ARRAY IMAGESTORAGE[]
 let imageCurrentIndexLocation;
+
+function enterKey (e){
+    console.log(e);
+    if(e.key === 'Enter'){
+        search();
+    }else{
+        return 
+    }
+    
+}
 
 async function search(currentPage = 1){
     try{
