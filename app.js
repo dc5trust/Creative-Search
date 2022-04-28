@@ -38,18 +38,17 @@ searchBarText.addEventListener('keyup', enterKey);
 let imageCurrentIndexLocation;
 
 function enterKey (e){
-    console.log(e);
     if(e.key === 'Enter'){
         search();
     }else{
         return 
     }
-    
 }
 
 async function search(currentPage = 1){
     try{
-            isSearchActive = true;
+        nextPageContainer.setAttribute('style', 'opacity: 1');
+        isSearchActive = true;
         //this keeps the same search query 'word' for each iterating page that follows
         if(searchBarText.value !== ''){
             query = searchBarText.value;
@@ -57,8 +56,19 @@ async function search(currentPage = 1){
             currentPageNum = 1;
             pageNum.innerText = currentPageNum;
         }
-        console.log(query);
-        console.log(currentPage)
+        if(imageViewBtn.innerText === 'MULTI-IMAGE VIEW'){
+            
+            //delete the one image and recall pullPhotosFromAPI 
+            const images = document.querySelector('.images').remove();
+            //re-add the original grid outline
+            galleryContainer.classList.remove('single-grid');
+            // galleryContainer.classList.add('group-grid');
+            
+            
+           
+            
+            imageViewBtn.innerText = 'SINGLE IMAGE VIEW';
+        }
         const result = await fetch(`https://api.pexels.com/v1/search/?query=${query}&page=${currentPage}&per_page=12`,{
             headers: {
                 authorization: PEXEL_KEY
