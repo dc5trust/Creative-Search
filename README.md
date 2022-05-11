@@ -1,6 +1,6 @@
 # Creative Search
 
-## Creative search is a web application powered by Pexels. It allows the user to search for various unique images in a beautiful format. 
+## Creative search is a web application powered by Pexels. It allows the user to search for various unique images. 
 
 ## Link to Web Application
 
