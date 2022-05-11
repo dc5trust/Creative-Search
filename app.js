@@ -1,10 +1,13 @@
 const PEXEL_KEY = '563492ad6f9170000100000121493e52a95d4994944fe8904822e918';
+
 //search  
 const searchBarText = document.querySelector('#search-bar');
 const searchBtn = document.querySelector('#search-btn');
+
 //elements 
 const galleryContainer = document.querySelector('.pexel-gallery-container');
 const homeBtn = document.querySelector('.home');
+
 //next image Buttons
 const imageViewBtn = document.querySelector('#image-view');
 const previousBtn = document.querySelector('#previous-Btn');
@@ -21,9 +24,11 @@ const ImageStorage = [];
 
 //global variables 
 let currentPageNum = 1; 
+
 //this will be used to determine which 'next page' will be used, either from trending or search results if user used the search bar 
 let isSearchActive = false;
 let query;
+
 //addEventListeners 
 galleryContainer.addEventListener('click', galleryUserClick);
 imageViewBtn.addEventListener('click', homeUserClick);
@@ -33,7 +38,7 @@ pageNextBtn.addEventListener('click', nextPage);
 pagePreviousBtn.addEventListener('click', previousPage);
 searchBtn.addEventListener('click', search);
 searchBarText.addEventListener('keyup', enterKey);
-// homeBtn.addEventListener('click', pullPhotosFromApi)
+
 //this keeps track of the 'next' or 'previous' image within the ARRAY IMAGESTORAGE[]
 let imageCurrentIndexLocation;
 
@@ -76,7 +81,6 @@ async function search(currentPage = 1){
         });
         //empty array before beginning
         ImageStorage.splice(0, ImageStorage.length);
-        console.log(ImageStorage.length, 'image storage')
         const photos = await result.json();
         photos.photos.forEach((photo, index)=>{
             const imgContainer = document.createElement('img');
@@ -129,9 +133,7 @@ function previous(){
 }
 
 function homeUserClick(e){
-    console.log(imageViewBtn.innerText);
     if(imageViewBtn.innerText === 'MULTI-IMAGE VIEW'){
-        console.log(e);
         //delete the one image and recall pullPhotosFromAPI 
         const images = document.querySelector('.images').remove();
         //re-add the original grid outline
@@ -160,7 +162,6 @@ function homeUserClick(e){
         const newImageDiv = document.createElement('img');
         newImageDiv.classList.add('images');
         nextPageContainer.setAttribute('style', 'opacity: 0');
-        console.log(newImageDiv.style.objectFit);
         newImageDiv.src = ImageStorage[0];
         //hide previous & forward buttons 
         previousBtn.setAttribute('style', 'opacity: 1');
@@ -174,7 +175,6 @@ function homeUserClick(e){
 }
 
 function galleryUserClick(e){
-    console.log(e.target);
     const imageClickedOn = e.target;
     //remove all images
     const images = document.querySelectorAll('.images');
@@ -190,12 +190,10 @@ function galleryUserClick(e){
     //remove the second class from image "image-NUMBER" which has the grid format
     imageClickedOn.classList.remove(imageClickedOn.classList[2]);
     imageCurrentIndexLocation = parseInt(imageClickedOn.classList[1]);
-    console.log(imageCurrentIndexLocation);
     imageClickedOn.setAttribute('style', 'object-fit: contain');
     //restructure 'grid' with one image, the one selected by the user 
     restructureGridWithOneImage(imageClickedOn);
     imageViewBtn.innerHTML = 'MULTI-IMAGE VIEW';
-    // console.log(ImageStorage.length);
 }
 
 function restructureGridWithOneImage(imageSelected){
